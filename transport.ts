@@ -1,4 +1,4 @@
-import { delay } from "jsr:@std/async";
+import { delay } from "jsr:@std/async@1.0.8";
 import type {
   Ack,
   ITunnelClient,
