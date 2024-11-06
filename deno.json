@@ -1,5 +1,6 @@
 {
   "name": "@signalerdev/rpc",
+  "version": "0.0.1",
   "exports": "./mod.ts",
   "tasks": {
     "dev": "deno run --watch main.ts"
