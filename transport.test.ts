@@ -1,8 +1,12 @@
-import { assert, assertEquals, assertGreater } from "jsr:@std/assert";
+import { assertEquals, assertGreater } from "jsr:@std/assert";
 import { afterEach, describe, it } from "@std/testing/bdd";
 import { delay } from "jsr:@std/async";
-import { ReservedConnId, Transport, TransportOptions } from "./transport.ts";
 import {
+  ReservedConnId,
+  Transport,
+  type TransportOptions,
+} from "./transport.ts";
+import type {
   ITunnelClient,
   Message,
   RecvReq,
@@ -10,7 +14,7 @@ import {
   SendReq,
   SendResp,
 } from "./v1/mod.ts";
-import { UnaryCall } from "@protobuf-ts/runtime-rpc";
+import type { UnaryCall } from "@protobuf-ts/runtime-rpc";
 import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
 import { Logger } from "./logger.ts";
 
