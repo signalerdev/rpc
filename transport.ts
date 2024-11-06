@@ -1,4 +1,3 @@
-import { delay } from "jsr:@std/async@1.0.8";
 import type {
   Ack,
   ITunnelClient,
@@ -16,6 +15,20 @@ const RETRY_JITTER_MS = 100;
 export enum ReservedConnId {
   Discovery = 0,
   Max = 16,
+}
+
+export function delay(ms: number, signal?: AbortSignal): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const timeoutId = setTimeout(resolve, ms);
+
+    // If an AbortSignal is provided, listen for the 'abort' event
+    if (signal) {
+      signal.addEventListener("abort", () => {
+        clearTimeout(timeoutId); // Cancel the delay
+        reject(new Error(signal.reason));
+      });
+    }
+  });
 }
 
 const defaultAsleep = delay;
@@ -144,9 +157,10 @@ export class Transport {
         }
 
         this.logger.error("failed to poll", { reason });
-        await this.asleep(RETRY_DELAY_MS + Math.random() * RETRY_JITTER_MS, {
-          signal: this.abort.signal,
-        }).catch(() => {});
+        await this.asleep(
+          RETRY_DELAY_MS + Math.random() * RETRY_JITTER_MS,
+          this.abort.signal,
+        ).catch(() => {});
       }
     }
     this.logger.debug("connection closed");
@@ -255,9 +269,10 @@ export class Transport {
         }
         this.logger.warn("failed to send, retrying", { err });
 
-        await this.asleep(RETRY_DELAY_MS + Math.random() * RETRY_JITTER_MS, {
-          signal: this.abort.signal,
-        }).catch(() => {});
+        await this.asleep(
+          RETRY_DELAY_MS + Math.random() * RETRY_JITTER_MS,
+          this.abort.signal,
+        ).catch(() => {});
       }
     }
   }
@@ -325,9 +340,7 @@ export class Stream {
 
       await this.transport.asleep(
         RETRY_DELAY_MS + Math.random() * RETRY_JITTER_MS,
-        {
-          signal: this.abort.signal,
-        },
+        this.abort.signal,
       ).catch(() => {});
 
       if (!(seqnum in this.sendbuf)) {

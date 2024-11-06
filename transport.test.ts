@@ -1,7 +1,7 @@
 import { assertEquals, assertGreater } from "jsr:@std/assert";
 import { afterEach, describe, it } from "@std/testing/bdd";
-import { delay } from "jsr:@std/async";
 import {
+  delay,
   ReservedConnId,
   Transport,
   type TransportOptions,
