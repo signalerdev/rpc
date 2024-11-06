@@ -1,0 +1,108 @@
+{
+  "version": "4",
+  "specifiers": {
+    "jsr:@std/assert@*": "1.0.7",
+    "jsr:@std/assert@1": "1.0.7",
+    "jsr:@std/assert@^1.0.7": "1.0.7",
+    "jsr:@std/async@*": "1.0.8",
+    "jsr:@std/async@^1.0.8": "1.0.8",
+    "jsr:@std/data-structures@^1.0.4": "1.0.4",
+    "jsr:@std/fs@^1.0.5": "1.0.5",
+    "jsr:@std/internal@^1.0.5": "1.0.5",
+    "jsr:@std/path@^1.0.7": "1.0.8",
+    "jsr:@std/path@^1.0.8": "1.0.8",
+    "jsr:@std/testing@^1.0.4": "1.0.4",
+    "npm:@protobuf-ts/plugin@^2.9.4": "2.9.4",
+    "npm:@protobuf-ts/runtime-rpc@^2.9.4": "2.9.4",
+    "npm:@protobuf-ts/runtime@^2.9.4": "2.9.4",
+    "npm:protoc-gen-ts@~0.8.7": "0.8.7"
+  },
+  "jsr": {
+    "@std/assert@1.0.7": {
+      "integrity": "64ce9fac879e0b9f3042a89b3c3f8ccfc9c984391af19e2087513a79d73e28c3",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    },
+    "@std/async@1.0.8": {
+      "integrity": "c057c5211a0f1d12e7dcd111ab430091301b8d64b4250052a79d277383bc3ba7"
+    },
+    "@std/data-structures@1.0.4": {
+      "integrity": "fa0e20c11eb9ba673417450915c750a0001405a784e2a4e0c3725031681684a0"
+    },
+    "@std/fs@1.0.5": {
+      "integrity": "41806ad6823d0b5f275f9849a2640d87e4ef67c51ee1b8fb02426f55e02fd44e",
+      "dependencies": [
+        "jsr:@std/path@^1.0.7"
+      ]
+    },
+    "@std/internal@1.0.5": {
+      "integrity": "54a546004f769c1ac9e025abd15a76b6671ddc9687e2313b67376125650dc7ba"
+    },
+    "@std/path@1.0.8": {
+      "integrity": "548fa456bb6a04d3c1a1e7477986b6cffbce95102d0bb447c67c4ee70e0364be"
+    },
+    "@std/testing@1.0.4": {
+      "integrity": "ca1368d720b183f572d40c469bb9faf09643ddd77b54f8b44d36ae6b94940576",
+      "dependencies": [
+        "jsr:@std/assert@^1.0.7",
+        "jsr:@std/async@^1.0.8",
+        "jsr:@std/data-structures",
+        "jsr:@std/fs",
+        "jsr:@std/internal",
+        "jsr:@std/path@^1.0.8"
+      ]
+    }
+  },
+  "npm": {
+    "@protobuf-ts/plugin-framework@2.9.4": {
+      "integrity": "sha512-9nuX1kjdMliv+Pes8dQCKyVhjKgNNfwxVHg+tx3fLXSfZZRcUHMc1PMwB9/vTvc6gBKt9QGz5ERqSqZc0++E9A==",
+      "dependencies": [
+        "@protobuf-ts/runtime",
+        "typescript"
+      ]
+    },
+    "@protobuf-ts/plugin@2.9.4": {
+      "integrity": "sha512-Db5Laq5T3mc6ERZvhIhkj1rn57/p8gbWiCKxQWbZBBl20wMuqKoHbRw4tuD7FyXi+IkwTToaNVXymv5CY3E8Rw==",
+      "dependencies": [
+        "@protobuf-ts/plugin-framework",
+        "@protobuf-ts/protoc",
+        "@protobuf-ts/runtime",
+        "@protobuf-ts/runtime-rpc",
+        "typescript"
+      ]
+    },
+    "@protobuf-ts/protoc@2.9.4": {
+      "integrity": "sha512-hQX+nOhFtrA+YdAXsXEDrLoGJqXHpgv4+BueYF0S9hy/Jq0VRTVlJS1Etmf4qlMt/WdigEes5LOd/LDzui4GIQ=="
+    },
+    "@protobuf-ts/runtime-rpc@2.9.4": {
+      "integrity": "sha512-y9L9JgnZxXFqH5vD4d7j9duWvIJ7AShyBRoNKJGhu9Q27qIbchfzli66H9RvrQNIFk5ER7z1Twe059WZGqERcA==",
+      "dependencies": [
+        "@protobuf-ts/runtime"
+      ]
+    },
+    "@protobuf-ts/runtime@2.9.4": {
+      "integrity": "sha512-vHRFWtJJB/SiogWDF0ypoKfRIZ41Kq+G9cEFj6Qm1eQaAhJ1LDFvgZ7Ja4tb3iLOQhz0PaoPnnOijF1qmEqTxg=="
+    },
+    "protoc-gen-ts@0.8.7": {
+      "integrity": "sha512-jr4VJey2J9LVYCV7EVyVe53g1VMw28cCmYJhBe5e3YX5wiyiDwgxWxeDf9oTqAe4P1bN/YGAkW2jhlH8LohwiQ=="
+    },
+    "typescript@3.9.10": {
+      "integrity": "sha512-w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q=="
+    }
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@std/assert@1",
+      "jsr:@std/testing@^1.0.4"
+    ],
+    "packageJson": {
+      "dependencies": [
+        "npm:@protobuf-ts/plugin@^2.9.4",
+        "npm:@protobuf-ts/runtime-rpc@^2.9.4",
+        "npm:@protobuf-ts/runtime@^2.9.4",
+        "npm:protoc-gen-ts@~0.8.7"
+      ]
+    }
+  }
+}

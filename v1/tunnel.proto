@@ -1,0 +1,125 @@
+syntax = "proto3";
+package github.com.signalerdev.rpc.v1;
+option go_package = "github.com/signalerdev/rpc/v1";
+option optimize_for = CODE_SIZE;
+
+service Tunnel {
+  rpc Send(SendReq) returns (SendResp);
+  rpc Recv(RecvReq) returns (RecvResp);
+}
+
+message SendReq {
+  Message msg = 1;
+
+  PeerInfo info = 10;
+}
+
+message SendResp {
+  repeated Message msgs = 1;
+}
+
+message RecvReq {
+  PeerInfo info = 1;
+}
+
+message RecvResp {
+  repeated Message msgs = 1;
+}
+
+message PeerInfo {
+  uint32 conn_id = 1;
+  bool enable_discovery = 2;
+
+  // temporary for testing
+  string project_id = 10;
+  string group_id = 11;
+  string peer_id = 12;
+}
+
+// Use small tag numbers (1-15) for fields that are frequently used or are performance-sensitive, even if they are optional.
+// Larger tag numbers (16 and above) can be used for fields that are optional and not frequently included in messages, as they will require more bytes to encode.
+// Avoid the 19000–19999 range, as it's reserved.
+// Consider future-proofing your schema by leaving gaps between field numbers to allow for extensions or new fields later.
+message Message {
+  MessageHeader header = 1;
+
+  // payload will be treated as opaque in backend. Size limit is 10kB.
+  MessagePayload payload = 2;
+}
+
+message MessagePayload {
+  oneof payload_type {
+    Signal signal = 1;
+    Join join = 2;
+    Bye bye = 3;
+    Ack ack = 4;
+  }
+}
+
+message MessageHeader {
+  string peer_id = 1; // where this message is originated from. Special values: "SYSTEM"
+  uint32 conn_id = 2; // used for deciding polite vs impolite. higher id wins. It also is used to detect connection breakages
+
+  string other_peer_id = 3; // Special values: "SYSTEM"
+  uint32 other_conn_id = 4; // Special values: 0-16
+
+  // uint32 stream_id = 5;
+  uint32 seqnum = 5;
+  bool reliable = 6; // true: tcp like, false: fire & forget
+}
+
+message Signal {
+  uint32 generation_counter = 1;
+  // reserved for headers
+  oneof data {
+    Sdp sdp = 9;
+    ICECandidate ice_candidate = 10;
+  }
+}
+
+enum SdpKind {
+  SDP_KIND_UNSPECIFIED = 0;
+  SDP_KIND_OFFER = 1;
+  SDP_KIND_ANSWER = 2;
+  SDP_KIND_PRANSWER = 3;
+  SDP_KIND_ROLLBACK = 4;
+}
+
+message Sdp {
+  SdpKind kind = 1;
+  string sdp = 2;
+}
+
+message ICECandidate {
+  string candidate = 1;
+  optional uint32 sdp_m_line_index = 2;
+  optional string sdp_mid = 3;
+  optional string username = 4;
+  optional string password = 5;
+}
+
+message Join {
+}
+
+message Bye {
+}
+
+message Ack {
+  repeated AckRange ack_ranges = 1;
+}
+
+message AckRange {
+  uint32 seqnum_start = 1;
+  uint32 seqnum_end = 2;
+}
+
+message DataChannel {
+  // reserved for headers
+
+  oneof payload {
+    DataChannelHeartbeat heartbeat = 10;
+  }
+}
+
+message DataChannelHeartbeat {
+}
