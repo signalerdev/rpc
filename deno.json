@@ -6,8 +6,5 @@
     "dev": "deno run --watch main.ts",
     "publish": "deno publish --allow-slow-types"
   },
-  "imports": {
-    "@std/async": "jsr:@std/async@^1.0.8",
-    "@std/testing": "jsr:@std/testing@^1.0.4"
-  }
+  "imports": {}
 }

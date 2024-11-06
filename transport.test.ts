@@ -1,5 +1,5 @@
-import { assertEquals, assertGreater } from "jsr:@std/assert";
-import { afterEach, describe, it } from "@std/testing/bdd";
+import { assertEquals, assertGreater } from "jsr:@std/assert@1.0.7";
+import { afterEach, describe, it } from "jsr:@std/testing@1.0.4/bdd";
 import {
   delay,
   ReservedConnId,
