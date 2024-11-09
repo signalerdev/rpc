@@ -1,5 +1,5 @@
 syntax = "proto3";
-package github.com.signalerdev.rpc.v1;
+package service.rpc.v1;
 option go_package = "github.com/signalerdev/rpc/v1";
 option optimize_for = CODE_SIZE;
 
