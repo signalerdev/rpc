@@ -92,10 +92,10 @@ message Sdp {
 
 message ICECandidate {
   string candidate = 1;
-  optional uint32 sdp_m_line_index = 2;
-  optional string sdp_mid = 3;
-  optional string username = 4;
-  optional string password = 5;
+  uint32 sdp_m_line_index = 2;
+  string sdp_mid = 3;
+  string username = 4;
+  string password = 5;
 }
 
 message Join {
