@@ -189,21 +189,21 @@ export interface ICECandidate {
      */
     candidate: string;
     /**
-     * @generated from protobuf field: uint32 sdp_m_line_index = 2;
+     * @generated from protobuf field: optional uint32 sdp_m_line_index = 2;
      */
-    sdpMLineIndex: number;
+    sdpMLineIndex?: number;
     /**
-     * @generated from protobuf field: string sdp_mid = 3;
+     * @generated from protobuf field: optional string sdp_mid = 3;
      */
-    sdpMid: string;
+    sdpMid?: string;
     /**
-     * @generated from protobuf field: string username = 4;
+     * @generated from protobuf field: optional string username = 4;
      */
-    username: string;
+    username?: string;
     /**
-     * @generated from protobuf field: string password = 5;
+     * @generated from protobuf field: optional string password = 5;
      */
-    password: string;
+    password?: string;
 }
 /**
  * @generated from protobuf message service.rpc.v1.Join
@@ -424,10 +424,10 @@ class ICECandidate$Type extends MessageType<ICECandidate> {
     constructor() {
         super("service.rpc.v1.ICECandidate", [
             { no: 1, name: "candidate", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "sdp_m_line_index", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
-            { no: 3, name: "sdp_mid", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "username", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "password", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 2, name: "sdp_m_line_index", kind: "scalar", opt: true, T: 13 /*ScalarType.UINT32*/ },
+            { no: 3, name: "sdp_mid", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "username", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "password", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
 }
