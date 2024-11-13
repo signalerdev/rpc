@@ -11,19 +11,11 @@ export interface SendReq {
      * @generated from protobuf field: service.rpc.v1.Message msg = 1;
      */
     msg?: Message;
-    /**
-     * @generated from protobuf field: service.rpc.v1.PeerInfo info = 10;
-     */
-    info?: PeerInfo;
 }
 /**
  * @generated from protobuf message service.rpc.v1.SendResp
  */
 export interface SendResp {
-    /**
-     * @generated from protobuf field: repeated service.rpc.v1.Message msgs = 1;
-     */
-    msgs: Message[];
 }
 /**
  * @generated from protobuf message service.rpc.v1.RecvReq
@@ -55,20 +47,6 @@ export interface PeerInfo {
      * @generated from protobuf field: bool enable_discovery = 2;
      */
     enableDiscovery: boolean;
-    /**
-     * temporary for testing
-     *
-     * @generated from protobuf field: string project_id = 10;
-     */
-    projectId: string;
-    /**
-     * @generated from protobuf field: string group_id = 11;
-     */
-    groupId: string;
-    /**
-     * @generated from protobuf field: string peer_id = 12;
-     */
-    peerId: string;
 }
 /**
  * Use small tag numbers (1-15) for fields that are frequently used or are performance-sensitive, even if they are optional.
@@ -130,29 +108,35 @@ export interface MessagePayload {
  */
 export interface MessageHeader {
     /**
-     * @generated from protobuf field: string peer_id = 1;
+     * @generated from protobuf field: string group_id = 1;
+     */
+    groupId: string;
+    /**
+     * @generated from protobuf field: string peer_id = 2;
      */
     peerId: string; // where this message is originated from. Special values: "SYSTEM"
     /**
-     * @generated from protobuf field: uint32 conn_id = 2;
+     * @generated from protobuf field: uint32 conn_id = 3;
      */
     connId: number; // used for deciding polite vs impolite. higher id wins. It also is used to detect connection breakages
     /**
-     * @generated from protobuf field: string other_peer_id = 3;
+     * @generated from protobuf field: string other_group_id = 4;
+     */
+    otherGroupId: string;
+    /**
+     * @generated from protobuf field: string other_peer_id = 5;
      */
     otherPeerId: string; // Special values: "SYSTEM"
     /**
-     * @generated from protobuf field: uint32 other_conn_id = 4;
+     * @generated from protobuf field: uint32 other_conn_id = 6;
      */
     otherConnId: number; // Special values: 0-16
     /**
-     * uint32 stream_id = 5;
-     *
-     * @generated from protobuf field: uint32 seqnum = 5;
+     * @generated from protobuf field: uint32 seqnum = 7;
      */
     seqnum: number;
     /**
-     * @generated from protobuf field: bool reliable = 6;
+     * @generated from protobuf field: bool reliable = 8;
      */
     reliable: boolean; // true: tcp like, false: fire & forget
 }
@@ -205,21 +189,21 @@ export interface ICECandidate {
      */
     candidate: string;
     /**
-     * @generated from protobuf field: optional uint32 sdp_m_line_index = 2;
+     * @generated from protobuf field: uint32 sdp_m_line_index = 2;
      */
-    sdpMLineIndex?: number;
+    sdpMLineIndex: number;
     /**
-     * @generated from protobuf field: optional string sdp_mid = 3;
+     * @generated from protobuf field: string sdp_mid = 3;
      */
-    sdpMid?: string;
+    sdpMid: string;
     /**
-     * @generated from protobuf field: optional string username = 4;
+     * @generated from protobuf field: string username = 4;
      */
-    username?: string;
+    username: string;
     /**
-     * @generated from protobuf field: optional string password = 5;
+     * @generated from protobuf field: string password = 5;
      */
-    password?: string;
+    password: string;
 }
 /**
  * @generated from protobuf message service.rpc.v1.Join
@@ -306,8 +290,7 @@ export enum SdpKind {
 class SendReq$Type extends MessageType<SendReq> {
     constructor() {
         super("service.rpc.v1.SendReq", [
-            { no: 1, name: "msg", kind: "message", T: () => Message },
-            { no: 10, name: "info", kind: "message", T: () => PeerInfo }
+            { no: 1, name: "msg", kind: "message", T: () => Message }
         ]);
     }
 }
@@ -318,9 +301,7 @@ export const SendReq = new SendReq$Type();
 // @generated message type with reflection information, may provide speed optimized methods
 class SendResp$Type extends MessageType<SendResp> {
     constructor() {
-        super("service.rpc.v1.SendResp", [
-            { no: 1, name: "msgs", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => Message }
-        ]);
+        super("service.rpc.v1.SendResp", []);
     }
 }
 /**
@@ -356,10 +337,7 @@ class PeerInfo$Type extends MessageType<PeerInfo> {
     constructor() {
         super("service.rpc.v1.PeerInfo", [
             { no: 1, name: "conn_id", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
-            { no: 2, name: "enable_discovery", kind: "scalar", T: 8 /*ScalarType.BOOL*/ },
-            { no: 10, name: "project_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 11, name: "group_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 12, name: "peer_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
+            { no: 2, name: "enable_discovery", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
 }
@@ -399,12 +377,14 @@ export const MessagePayload = new MessagePayload$Type();
 class MessageHeader$Type extends MessageType<MessageHeader> {
     constructor() {
         super("service.rpc.v1.MessageHeader", [
-            { no: 1, name: "peer_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "conn_id", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
-            { no: 3, name: "other_peer_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "other_conn_id", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
-            { no: 5, name: "seqnum", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
-            { no: 6, name: "reliable", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
+            { no: 1, name: "group_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "peer_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "conn_id", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
+            { no: 4, name: "other_group_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "other_peer_id", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 6, name: "other_conn_id", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
+            { no: 7, name: "seqnum", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
+            { no: 8, name: "reliable", kind: "scalar", T: 8 /*ScalarType.BOOL*/ }
         ]);
     }
 }
@@ -444,10 +424,10 @@ class ICECandidate$Type extends MessageType<ICECandidate> {
     constructor() {
         super("service.rpc.v1.ICECandidate", [
             { no: 1, name: "candidate", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "sdp_m_line_index", kind: "scalar", opt: true, T: 13 /*ScalarType.UINT32*/ },
-            { no: 3, name: "sdp_mid", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
-            { no: 4, name: "username", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
-            { no: 5, name: "password", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ }
+            { no: 2, name: "sdp_m_line_index", kind: "scalar", T: 13 /*ScalarType.UINT32*/ },
+            { no: 3, name: "sdp_mid", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 4, name: "username", kind: "scalar", T: 9 /*ScalarType.STRING*/ },
+            { no: 5, name: "password", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
         ]);
     }
 }

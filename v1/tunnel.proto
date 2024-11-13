@@ -10,12 +10,9 @@ service Tunnel {
 
 message SendReq {
   Message msg = 1;
-
-  PeerInfo info = 10;
 }
 
 message SendResp {
-  repeated Message msgs = 1;
 }
 
 message RecvReq {
@@ -29,11 +26,6 @@ message RecvResp {
 message PeerInfo {
   uint32 conn_id = 1;
   bool enable_discovery = 2;
-
-  // temporary for testing
-  string project_id = 10;
-  string group_id = 11;
-  string peer_id = 12;
 }
 
 // Use small tag numbers (1-15) for fields that are frequently used or are performance-sensitive, even if they are optional.
@@ -57,15 +49,16 @@ message MessagePayload {
 }
 
 message MessageHeader {
-  string peer_id = 1; // where this message is originated from. Special values: "SYSTEM"
-  uint32 conn_id = 2; // used for deciding polite vs impolite. higher id wins. It also is used to detect connection breakages
+  string group_id = 1;
+  string peer_id = 2; // where this message is originated from. Special values: "SYSTEM"
+  uint32 conn_id = 3; // used for deciding polite vs impolite. higher id wins. It also is used to detect connection breakages
 
-  string other_peer_id = 3; // Special values: "SYSTEM"
-  uint32 other_conn_id = 4; // Special values: 0-16
+  string other_group_id = 4;
+  string other_peer_id = 5; // Special values: "SYSTEM"
+  uint32 other_conn_id = 6; // Special values: 0-16
 
-  // uint32 stream_id = 5;
-  uint32 seqnum = 5;
-  bool reliable = 6; // true: tcp like, false: fire & forget
+  uint32 seqnum = 7;
+  bool reliable = 8; // true: tcp like, false: fire & forget
 }
 
 message Signal {
