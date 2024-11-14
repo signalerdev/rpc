@@ -29,6 +29,10 @@ export interface IceServer {
      * @generated from protobuf field: optional string username = 2;
      */
     username?: string;
+    /**
+     * @generated from protobuf field: optional string credential = 3;
+     */
+    credential?: string;
 }
 /**
  * @generated from protobuf message service.rpc.v1.SendReq
@@ -340,7 +344,8 @@ class IceServer$Type extends MessageType<IceServer> {
     constructor() {
         super("service.rpc.v1.IceServer", [
             { no: 1, name: "urls", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
-            { no: 2, name: "username", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ }
+            { no: 2, name: "username", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ },
+            { no: 3, name: "credential", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ }
         ]);
     }
 }
