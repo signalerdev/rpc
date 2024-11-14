@@ -4,6 +4,33 @@
 import { ServiceType } from "@protobuf-ts/runtime-rpc";
 import { MessageType } from "@protobuf-ts/runtime";
 /**
+ * @generated from protobuf message service.rpc.v1.PrepareReq
+ */
+export interface PrepareReq {
+}
+/**
+ * @generated from protobuf message service.rpc.v1.PrepareResp
+ */
+export interface PrepareResp {
+    /**
+     * @generated from protobuf field: repeated service.rpc.v1.IceServer ice_servers = 1;
+     */
+    iceServers: IceServer[];
+}
+/**
+ * @generated from protobuf message service.rpc.v1.IceServer
+ */
+export interface IceServer {
+    /**
+     * @generated from protobuf field: repeated string urls = 1;
+     */
+    urls: string[];
+    /**
+     * @generated from protobuf field: optional string username = 2;
+     */
+    username?: string;
+}
+/**
  * @generated from protobuf message service.rpc.v1.SendReq
  */
 export interface SendReq {
@@ -287,6 +314,41 @@ export enum SdpKind {
     ROLLBACK = 4
 }
 // @generated message type with reflection information, may provide speed optimized methods
+class PrepareReq$Type extends MessageType<PrepareReq> {
+    constructor() {
+        super("service.rpc.v1.PrepareReq", []);
+    }
+}
+/**
+ * @generated MessageType for protobuf message service.rpc.v1.PrepareReq
+ */
+export const PrepareReq = new PrepareReq$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class PrepareResp$Type extends MessageType<PrepareResp> {
+    constructor() {
+        super("service.rpc.v1.PrepareResp", [
+            { no: 1, name: "ice_servers", kind: "message", repeat: 1 /*RepeatType.PACKED*/, T: () => IceServer }
+        ]);
+    }
+}
+/**
+ * @generated MessageType for protobuf message service.rpc.v1.PrepareResp
+ */
+export const PrepareResp = new PrepareResp$Type();
+// @generated message type with reflection information, may provide speed optimized methods
+class IceServer$Type extends MessageType<IceServer> {
+    constructor() {
+        super("service.rpc.v1.IceServer", [
+            { no: 1, name: "urls", kind: "scalar", repeat: 2 /*RepeatType.UNPACKED*/, T: 9 /*ScalarType.STRING*/ },
+            { no: 2, name: "username", kind: "scalar", opt: true, T: 9 /*ScalarType.STRING*/ }
+        ]);
+    }
+}
+/**
+ * @generated MessageType for protobuf message service.rpc.v1.IceServer
+ */
+export const IceServer = new IceServer$Type();
+// @generated message type with reflection information, may provide speed optimized methods
 class SendReq$Type extends MessageType<SendReq> {
     constructor() {
         super("service.rpc.v1.SendReq", [
@@ -506,6 +568,7 @@ export const DataChannelHeartbeat = new DataChannelHeartbeat$Type();
  * @generated ServiceType for protobuf service service.rpc.v1.Tunnel
  */
 export const Tunnel = new ServiceType("service.rpc.v1.Tunnel", [
+    { name: "Prepare", options: {}, I: PrepareReq, O: PrepareResp },
     { name: "Send", options: {}, I: SendReq, O: SendResp },
     { name: "Recv", options: {}, I: RecvReq, O: RecvResp }
 ]);

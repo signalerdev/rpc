@@ -6,15 +6,21 @@ import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { Tunnel } from "./tunnel.ts";
 import type { RecvResp } from "./tunnel.ts";
 import type { RecvReq } from "./tunnel.ts";
-import { stackIntercept } from "@protobuf-ts/runtime-rpc";
 import type { SendResp } from "./tunnel.ts";
 import type { SendReq } from "./tunnel.ts";
+import { stackIntercept } from "@protobuf-ts/runtime-rpc";
+import type { PrepareResp } from "./tunnel.ts";
+import type { PrepareReq } from "./tunnel.ts";
 import type { UnaryCall } from "@protobuf-ts/runtime-rpc";
 import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
 /**
  * @generated from protobuf service service.rpc.v1.Tunnel
  */
 export interface ITunnelClient {
+    /**
+     * @generated from protobuf rpc: Prepare(service.rpc.v1.PrepareReq) returns (service.rpc.v1.PrepareResp);
+     */
+    prepare(input: PrepareReq, options?: RpcOptions): UnaryCall<PrepareReq, PrepareResp>;
     /**
      * @generated from protobuf rpc: Send(service.rpc.v1.SendReq) returns (service.rpc.v1.SendResp);
      */
@@ -34,17 +40,24 @@ export class TunnelClient implements ITunnelClient, ServiceInfo {
     constructor(private readonly _transport: RpcTransport) {
     }
     /**
+     * @generated from protobuf rpc: Prepare(service.rpc.v1.PrepareReq) returns (service.rpc.v1.PrepareResp);
+     */
+    prepare(input: PrepareReq, options?: RpcOptions): UnaryCall<PrepareReq, PrepareResp> {
+        const method = this.methods[0], opt = this._transport.mergeOptions(options);
+        return stackIntercept<PrepareReq, PrepareResp>("unary", this._transport, method, opt, input);
+    }
+    /**
      * @generated from protobuf rpc: Send(service.rpc.v1.SendReq) returns (service.rpc.v1.SendResp);
      */
     send(input: SendReq, options?: RpcOptions): UnaryCall<SendReq, SendResp> {
-        const method = this.methods[0], opt = this._transport.mergeOptions(options);
+        const method = this.methods[1], opt = this._transport.mergeOptions(options);
         return stackIntercept<SendReq, SendResp>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: Recv(service.rpc.v1.RecvReq) returns (service.rpc.v1.RecvResp);
      */
     recv(input: RecvReq, options?: RpcOptions): UnaryCall<RecvReq, RecvResp> {
-        const method = this.methods[1], opt = this._transport.mergeOptions(options);
+        const method = this.methods[2], opt = this._transport.mergeOptions(options);
         return stackIntercept<RecvReq, RecvResp>("unary", this._transport, method, opt, input);
     }
 }
